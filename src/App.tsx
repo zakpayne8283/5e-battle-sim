@@ -6,6 +6,7 @@ import type { Entity } from './types/Entity';
 
 // CSS
 import "./App.css"
+import InitiativeTracker from './components/InitiativeTracker/InitiativeTracker';
 
 function App() {
   // Define the entities, which will be creatures, players, etc
@@ -30,16 +31,12 @@ function App() {
   return (
     <>
       <h1>5E Battle Sim</h1>
+      <InitiativeTracker entities={entities} />
       <div>
         <button onClick={addEntity}>
           Add Entity
         </button>
       </div>
-      {entities.map(entity => (
-        <div key={entity.id}>
-          Entity {entity.id} - Initiative: {entity.initiative}
-        </div>
-      ))}
     </>
   )
 }
