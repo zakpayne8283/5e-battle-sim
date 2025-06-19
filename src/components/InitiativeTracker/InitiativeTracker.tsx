@@ -8,16 +8,20 @@ function InitiativeTracker(){
     const { state } = useGame();
 
     // Sort entities by the turn order
+    const sortedEntities = [...state.entities].sort((a, b) => b.initiative - a.initiative)
 
     return(
         <div id="InitiativeTracker">
-            {state.entities.map(entity => (
+            {sortedEntities.map(entity => (
                 <div key={entity.id}>
                     <div className='entity-name'>
                         {entity.name}
                     </div>
                     <div className='entity-health'>
                         {entity.currentHealth}/{entity.maxHealth}
+                    </div>
+                    <div className='entity-initiative'>
+                        Initiative: {entity.initiative}
                     </div>
                 </div>
             ))}

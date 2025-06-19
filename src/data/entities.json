@@ -1,0 +1,14 @@
+{
+    "entities":[
+        {
+            "name": "Fighter",
+            "maxHealth": 10,
+            "initiativeBonus": 0
+        },
+        {
+            "name": "Goblin",
+            "maxHealth": 6,
+            "initiativeBonus": 3
+        }
+    ]
+}
