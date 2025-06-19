@@ -2,3 +2,19 @@
 {
     display: flex;
 }
+
+#InitiativeTracker > div
+{
+    border: 1px solid white;
+    padding: 6px 12px;
+}
+
+#InitiativeTracker > div .entity-name
+{
+
+}
+
+#InitiativeTracker > div .entity-health
+{
+    
+}

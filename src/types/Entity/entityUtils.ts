@@ -1,13 +1,12 @@
 import type { Entity } from './Entity';
 
-let entityCount = 0;
-
-export function createNewEntity(existingEntities: Entity[]) : Entity {
-    entityCount += 1;
+export function createNewEntity() : Entity {
 
     return {
-        id: `entity${entityCount}`,
-        health: 100,
+        id: `entity-${crypto.randomUUID()}`,
+        name: 'entity',
+        maxHealth: 12,
+        currentHealth: 12,
         initiative: 0
     }
 }

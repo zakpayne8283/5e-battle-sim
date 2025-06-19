@@ -1,5 +1,7 @@
 export type Entity = {
   id: string;
-  health: number;
+  name: string;
+  maxHealth: number;
+  currentHealth: number;
   initiative: number;
 }

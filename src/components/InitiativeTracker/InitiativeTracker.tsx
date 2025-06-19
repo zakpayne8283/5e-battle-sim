@@ -13,7 +13,12 @@ function InitiativeTracker(){
         <div id="InitiativeTracker">
             {state.entities.map(entity => (
                 <div key={entity.id}>
-                {entity.id} - {entity.initiative}
+                    <div className='entity-name'>
+                        {entity.name}
+                    </div>
+                    <div className='entity-health'>
+                        {entity.currentHealth}/{entity.maxHealth}
+                    </div>
                 </div>
             ))}
         </div>
