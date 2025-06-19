@@ -23,7 +23,7 @@ function gameReducer(state: State, action: Action) : State {
         case 'ADD_ENTITY':
             return {
                 ...state,
-                entities: [...state.entities, createNewEntity()]
+                entities: [...state.entities, createNewEntity(state.entities)]
             };
         default:
             return state;
