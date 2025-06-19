@@ -14,6 +14,9 @@ function TopLevelMenu(){
             <button id="AddEntity" onClick={() => dispatch({ type: 'ADD_ENTITY' })}>
                 Add Entity
             </button>
+            <button id="StartCombat" onClick={() => dispatch({ type: 'START_COMBAT' })}>
+                Start Combat
+            </button>
         </div>
     )
 }

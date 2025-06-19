@@ -7,12 +7,9 @@ import './InitiativeTracker.css';
 function InitiativeTracker(){
     const { state } = useGame();
 
-    // Sort entities by the turn order
-    const sortedEntities = [...state.entities].sort((a, b) => b.initiative - a.initiative)
-
     return(
         <div id="InitiativeTracker">
-            {sortedEntities.map(entity => (
+            {state.entities.map(entity => (
                 <div key={entity.id}>
                     <div className='entity-name'>
                         {entity.name}

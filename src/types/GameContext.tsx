@@ -4,16 +4,19 @@ import { createNewEntity } from './Entity/entityUtils';
 
 // Define state object
 type State = {
-    entities: Entity[]
+    entities: Entity[];
+    combatStarted: boolean;
+    currentEntity: Entity | null;
 };
 
 // Define actions
-type Action = {
-    type: 'ADD_ENTITY'
-};
+type Action =
+  | { type: 'ADD_ENTITY'; }
+  | { type: 'START_COMBAT'; };
+
 
 // Set the initial state
-const initialState: State = { entities: [] };
+const initialState: State = { entities: [], combatStarted: false, currentEntity: null };
 
 // Setup Reducer
 function gameReducer(state: State, action: Action) : State {
@@ -21,9 +24,18 @@ function gameReducer(state: State, action: Action) : State {
     switch (action.type) {
         // Add new Entity
         case 'ADD_ENTITY':
+            const updatedList = [...state.entities, createNewEntity(state.entities)];
+            const sortedEntities = updatedList.sort((a, b) => b.initiative - a.initiative)
+
             return {
                 ...state,
-                entities: [...state.entities, createNewEntity(state.entities)]
+                entities: sortedEntities
+            };
+        case 'START_COMBAT':
+            return {
+                ...state,
+                combatStarted: true,
+                currentEntity: state.entities[0]
             };
         default:
             return state;
