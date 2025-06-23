@@ -3,12 +3,34 @@
         {
             "name": "Fighter",
             "maxHealth": 10,
-            "initiativeBonus": 0
+            "initiativeBonus": 0,
+            "actions": [
+                {
+                    "name": "Weapon Attack",
+                    "actionType": "ATTACK_SINGLE",
+                    "actionCost": 1,
+                    "actionResult": {
+                        "damageDie": 8
+                    }
+                    
+                }
+            ]
         },
         {
             "name": "Goblin",
             "maxHealth": 6,
-            "initiativeBonus": 3
+            "initiativeBonus": 3,
+            "actions": [
+                {
+                    "name": "Weapon Attack",
+                    "actionType": "ATTACK_SINGLE",
+                    "actionCost": 1,
+                    "actionResult": {
+                        "damageDie": 6
+                    }
+                    
+                }
+            ]
         }
     ]
 }
