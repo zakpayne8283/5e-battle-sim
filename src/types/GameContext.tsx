@@ -1,6 +1,7 @@
 import React, { createContext, useContext, useReducer } from 'react';
 import type { Entity } from './Entity/Entity';
-import { createNewEntity } from './Entity/entityUtils';
+import type { Action } from './Action/Action';
+import { createNewEntity, entityAttacksEntity } from './Entity/entityUtils';
 
 // Define state object
 type State = {
@@ -10,18 +11,19 @@ type State = {
 };
 
 // Define actions
-type Action =
+type ContextAction =
   | { type: 'ADD_ENTITY'; }
-  | { type: 'START_COMBAT'; };
+  | { type: 'START_COMBAT'; }
+  | { type: 'ATTACK_ENTITY'; payload: { attackerId: string; recieverId: string; action: Action } };
 
 
 // Set the initial state
 const initialState: State = { entities: [], combatStarted: false, currentEntity: null };
 
 // Setup Reducer
-function gameReducer(state: State, action: Action) : State {
+function gameReducer(state: State, contextAction: ContextAction) : State {
     // Handle specific actions
-    switch (action.type) {
+    switch (contextAction.type) {
         // Add new Entity
         case 'ADD_ENTITY':
             const updatedList = [...state.entities, createNewEntity(state.entities)];
@@ -37,6 +39,21 @@ function gameReducer(state: State, action: Action) : State {
                 combatStarted: true,
                 currentEntity: state.entities[0]
             };
+        case 'ATTACK_ENTITY':
+            const attacker = state.entities.filter(e => e.id === contextAction.payload.attackerId)[0];
+            const reciever = state.entities.filter(e => e.id === contextAction.payload.recieverId)[0];
+            const action = contextAction.payload.action;
+
+            // Update the list of entities following the attack
+            let updatedEntities = state.entities.map(e => e.id == reciever.id ? entityAttacksEntity(attacker, reciever, action) : e);
+
+            // Remove any dead entities
+            updatedEntities = updatedEntities.filter(e => e.currentHealth > 0);
+
+            return {
+                ...state,
+                entities: updatedEntities
+            }
         default:
             return state;
     }
@@ -45,7 +62,7 @@ function gameReducer(state: State, action: Action) : State {
 // Create the game context
 const GameContext = createContext<{
     state: State;
-    dispatch: React.Dispatch<Action>;
+    dispatch: React.Dispatch<ContextAction>;
 } | null>(null);
 
 // Create the provider Object/Component

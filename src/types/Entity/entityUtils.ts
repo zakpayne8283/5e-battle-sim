@@ -20,3 +20,15 @@ export function createNewEntity(entities : Entity[]) : Entity {
         actions: randomEntity.actions as Action[]
     }
 }
+
+/// Returns: entity that was attacked with the new health
+export function entityAttacksEntity(attacker: Entity, reciever: Entity, action: Action) : Entity {
+    
+    // TODO: Do this using types by making an ActionResult type instead
+    const damageDie = (action.actionResult as { damageDie: number }).damageDie;
+    const damage = Math.floor(Math.random() * damageDie)
+
+    reciever.currentHealth -= damage;
+
+    return reciever;
+}

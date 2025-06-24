@@ -6,7 +6,7 @@ type ActionDetailsProps = {
 }
 
 function ActionDetails({ currentAction } : ActionDetailsProps) {
-    const { state } = useGame();
+    const { state, dispatch } = useGame();
 
     let targets = null;
 
@@ -23,9 +23,22 @@ function ActionDetails({ currentAction } : ActionDetailsProps) {
         <>
             <div>{currentAction.name}</div>
             <div>
-                { targets != null && targets.map((t, i) => (
-                    <button key={i}>
-                        {t.name}
+                { state.currentEntity != null && targets != null && targets.map(target => (
+                    <button
+                        key={target.id}
+                        onClick={
+                            () => dispatch(
+                                {
+                                    type: 'ATTACK_ENTITY',
+                                    payload: {
+                                        attackerId: state.currentEntity.id,
+                                        recieverId: target.id,
+                                        action: currentAction
+                                    }
+                                }
+                            )}
+                    >
+                        {target.name}
                     </button>
                 ))}
             </div>
